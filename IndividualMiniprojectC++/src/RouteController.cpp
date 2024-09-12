@@ -1,3 +1,4 @@
+// Copyright 2024 Maria Surani
 #include "RouteController.h"
 
 #include <exception>
@@ -7,7 +8,7 @@
 
 #include "Globals.h"
 #include "MyFileDatabase.h"
-#include "crow.h"
+#include "crow.h" // NOLINT
 
 // Utility function to handle exceptions
 crow::response handleException(const std::exception& e) {

@@ -1,3 +1,4 @@
+// Copyright 2024 Maria Surani
 #include "Department.h"
 
 #include <map>

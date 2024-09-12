@@ -1,3 +1,4 @@
+// Copyright 2024 Maria Surani
 #include <csignal>
 #include <iostream>
 #include <map>
@@ -9,7 +10,7 @@
 #include "MyApp.h"
 #include "MyFileDatabase.h"
 #include "RouteController.h"
-#include "crow.h"
+#include "crow.h" // NOLINT
 
 /**
  *  Method to handle proper termination protocols
