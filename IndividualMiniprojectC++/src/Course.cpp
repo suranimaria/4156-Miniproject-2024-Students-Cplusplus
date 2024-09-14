@@ -17,7 +17,7 @@
 Course::Course(int capacity, const std::string& instructorName,
                const std::string& courseLocation, const std::string& timeSlot)
     : enrollmentCapacity(capacity),
-      enrolledStudentCount(500),
+      enrolledStudentCount(0),
       courseLocation(courseLocation),
       instructorName(instructorName),
       courseTimeSlot(timeSlot) {}
@@ -55,9 +55,11 @@ bool Course::dropStudent() {
 
 std::string Course::getCourseLocation() const { return courseLocation; }
 
-std::string Course::getInstructorName() const { return courseTimeSlot; }
+std::string Course::getInstructorName() const { return instructorName; }
 
-std::string Course::getCourseTimeSlot() const { return instructorName; }
+std::string Course::getCourseTimeSlot() const { return courseTimeSlot; }
+
+int Course::getEnrolledStudentCount() const { return enrolledStudentCount; }
 
 std::string Course::display() const {
   return "\nInstructor: " + instructorName + "; Location: " + courseLocation +
@@ -84,7 +86,7 @@ void Course::setEnrolledStudentCount(int count) {
 }
 
 bool Course::isCourseFull() const {
-  return enrollmentCapacity > enrolledStudentCount;
+  return enrolledStudentCount >= enrollmentCapacity;
 }
 
 void Course::serialize(std::ostream& out) const {

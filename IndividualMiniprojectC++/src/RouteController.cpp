@@ -44,6 +44,12 @@ void RouteController::retrieveDepartment(const crow::request& req,
                                          crow::response& res) {
   try {
     auto deptCode = req.url_params.get("deptCode");
+    if (deptCode == nullptr) {
+      res.code = 400;
+      res.write("Department code must be included in the request.");
+      res.end();
+      return;
+    }
     auto departmentMapping = myFileDatabase->getDepartmentMapping();
 
     auto it = departmentMapping.find(deptCode);
@@ -77,6 +83,13 @@ void RouteController::retrieveDepartment(const crow::request& req,
 void RouteController::retrieveCourse(const crow::request& req,
                                      crow::response& res) {
   try {
+    if (!req.url_params.get("deptCode") || !req.url_params.get("courseCode")) {
+      res.code = 400;
+      res.write("Both department code and course code must be included in the request.");
+      res.end();
+      return;
+    }
+
     auto deptCode = req.url_params.get("deptCode");
     auto courseCode = std::stoi(req.url_params.get("courseCode"));
 
@@ -121,6 +134,13 @@ void RouteController::retrieveCourse(const crow::request& req,
 void RouteController::isCourseFull(const crow::request& req,
                                    crow::response& res) {
   try {
+    if (!req.url_params.get("deptCode") || !req.url_params.get("courseCode")) {
+      res.code = 400;
+      res.write("Both department code and course code must be included in the request.");
+      res.end();
+      return;
+    }
+
     auto deptCode = req.url_params.get("deptCode");
     auto courseCode = std::stoi(req.url_params.get("courseCode"));
 
@@ -164,6 +184,12 @@ void RouteController::isCourseFull(const crow::request& req,
 void RouteController::getMajorCountFromDept(const crow::request& req,
                                             crow::response& res) {
   try {
+    if (!req.url_params.get("deptCode")) {
+      res.code = 400;
+      res.write("Department code must be included in the request.");
+      res.end();
+      return;
+    }
     auto deptCode = req.url_params.get("deptCode");
 
     auto departmentMapping = myFileDatabase->getDepartmentMapping();
@@ -197,6 +223,12 @@ void RouteController::getMajorCountFromDept(const crow::request& req,
 void RouteController::identifyDeptChair(const crow::request& req,
                                         crow::response& res) {
   try {
+    if (!req.url_params.get("deptCode")) {
+      res.code = 400;
+      res.write("Department code must be included in the request.");
+      res.end();
+      return;
+    }
     auto deptCode = req.url_params.get("deptCode");
 
     auto departmentMapping = myFileDatabase->getDepartmentMapping();
@@ -233,6 +265,13 @@ void RouteController::identifyDeptChair(const crow::request& req,
 void RouteController::findCourseLocation(const crow::request& req,
                                          crow::response& res) {
   try {
+    if (!req.url_params.get("deptCode") || !req.url_params.get("courseCode")) {
+      res.code = 400;
+      res.write("Both department code and course code must be included in the request.");
+      res.end();
+      return;
+    }
+
     auto deptCode = req.url_params.get("deptCode");
     auto courseCode = std::stoi(req.url_params.get("courseCode"));
 
@@ -279,6 +318,13 @@ void RouteController::findCourseLocation(const crow::request& req,
 void RouteController::findCourseInstructor(const crow::request& req,
                                            crow::response& res) {
   try {
+    if (!req.url_params.get("deptCode") || !req.url_params.get("courseCode")) {
+      res.code = 400;
+      res.write("Both department code and course code must be included in the request.");
+      res.end();
+      return;
+    }
+
     auto deptCode = req.url_params.get("deptCode");
     auto courseCode = std::stoi(req.url_params.get("courseCode"));
 
@@ -325,6 +371,13 @@ void RouteController::findCourseInstructor(const crow::request& req,
 void RouteController::findCourseTime(const crow::request& req,
                                      crow::response& res) {
   try {
+    if (!req.url_params.get("deptCode") || !req.url_params.get("courseCode")) {
+      res.code = 400;
+      res.write("Both department code and course code must be included in the request.");
+      res.end();
+      return;
+    }
+
     auto deptCode = req.url_params.get("deptCode");
     auto courseCode = std::stoi(req.url_params.get("courseCode"));
 
@@ -365,6 +418,13 @@ void RouteController::findCourseTime(const crow::request& req,
 void RouteController::addMajorToDept(const crow::request& req,
                                      crow::response& res) {
   try {
+    if (!req.url_params.get("deptCode")) {
+      res.code = 400;
+      res.write("Department code must be included in the request.");
+      res.end();
+      return;
+    }
+
     auto deptCode = req.url_params.get("deptCode");
 
     auto departmentMapping = myFileDatabase->getDepartmentMapping();
@@ -388,6 +448,13 @@ void RouteController::addMajorToDept(const crow::request& req,
 void RouteController::setEnrollmentCount(const crow::request& req,
                                          crow::response& res) {
   try {
+    if (!req.url_params.get("deptCode") || !req.url_params.get("courseCode") || !req.url_params.get("count")) {
+      res.code = 400;
+      res.write("Department code, course code and new count must ALL be included in the request.");
+      res.end();
+      return;
+    }
+    
     auto deptCode = req.url_params.get("deptCode");
     auto courseCode = std::stoi(req.url_params.get("courseCode"));
     auto count = std::stoi(req.url_params.get("count"));
@@ -421,6 +488,13 @@ void RouteController::setEnrollmentCount(const crow::request& req,
 void RouteController::setCourseLocation(const crow::request& req,
                                         crow::response& res) {
   try {
+    if (!req.url_params.get("deptCode") || !req.url_params.get("courseCode") || !req.url_params.get("location")) {
+      res.code = 400;
+      res.write("Department code, course code and new location must ALL be included in the request.");
+      res.end();
+      return;
+    }
+
     auto deptCode = req.url_params.get("deptCode");
     auto courseCode = std::stoi(req.url_params.get("courseCode"));
     auto location = req.url_params.get("location");
@@ -453,6 +527,13 @@ void RouteController::setCourseLocation(const crow::request& req,
 void RouteController::setCourseInstructor(const crow::request& req,
                                           crow::response& res) {
   try {
+    if (!req.url_params.get("deptCode") || !req.url_params.get("courseCode") || !req.url_params.get("instructor")) {
+      res.code = 400;
+      res.write("Department code, course code and new instructor must ALL be included in the request.");
+      res.end();
+      return;
+    }
+
     auto deptCode = req.url_params.get("deptCode");
     auto courseCodeStr = req.url_params.get("courseCode");
     auto instructor = req.url_params.get("instructor");
@@ -488,6 +569,13 @@ void RouteController::setCourseInstructor(const crow::request& req,
 void RouteController::setCourseTime(const crow::request& req,
                                     crow::response& res) {
   try {
+    if (!req.url_params.get("deptCode") || !req.url_params.get("courseCode") || !req.url_params.get("time")) {
+      res.code = 400;
+      res.write("Department code, course code and new time must ALL be included in the request.");
+      res.end();
+      return;
+    }
+
     auto deptCode = req.url_params.get("deptCode");
     auto courseCode = std::stoi(req.url_params.get("courseCode"));
     auto time = req.url_params.get("time");
@@ -529,6 +617,12 @@ void RouteController::setCourseTime(const crow::request& req,
 void RouteController::removeMajorFromDept(const crow::request& req,
                                           crow::response& res) {
   try {
+    if (!req.url_params.get("deptCode")) {
+      res.code = 400;
+      res.write("Department code must be included in the request.");
+      res.end();
+      return;
+    }
     auto deptCode = req.url_params.get("deptCode");
 
     auto departmentMapping = myFileDatabase->getDepartmentMapping();
@@ -563,6 +657,13 @@ void RouteController::removeMajorFromDept(const crow::request& req,
 void RouteController::dropStudentFromCourse(const crow::request& req,
                                             crow::response& res) {
   try {
+    if (!req.url_params.get("deptCode") || !req.url_params.get("courseCode")) {
+      res.code = 400;
+      res.write("Both department code and course code must be included in the request.");
+      res.end();
+      return;
+    }
+
     auto deptCode = req.url_params.get("deptCode");
     auto courseCode = std::stoi(req.url_params.get("courseCode"));
 
@@ -686,4 +787,7 @@ void RouteController::initRoutes(crow::App<>& app) {
           });
 }
 
-void RouteController::setDatabase(MyFileDatabase* db) { myFileDatabase = db; }
+void RouteController::setDatabase(MyFileDatabase* db) { 
+  std::cout << "Database set to: " << db << std::endl;
+  myFileDatabase = db; 
+}
