@@ -1,3 +1,4 @@
+// Copyright 2024 Maria Surani
 #include "MyApp.h"
 #include "RouteController.h"
 #include <gtest/gtest.h>
@@ -108,6 +109,23 @@ TEST(RouteControllerUnitTests, IsCourseFullTest) {
     routeController.isCourseFull(req, res);
     EXPECT_EQ(res.code, 200);
     EXPECT_EQ(res.body, "false"); 
+
+    req.url_params.clear();
+    res.body.clear();
+    res.code = 0;
+
+    req.url_params = crow::query_string{"?deptCode=none&courseCode=12"};
+    routeController.isCourseFull(req, res);
+    EXPECT_EQ(res.code, 404);
+    EXPECT_EQ(res.body, "Department Not Found");
+
+    req.url_params.clear();
+    res.body.clear();
+    res.code = 0;
+
+    routeController.isCourseFull(req, res);
+    EXPECT_EQ(res.code, 400);
+    EXPECT_EQ(res.body, "Both department code and course code must be included in the request.");
 }
 
 TEST(RouteControllerUnitTests, GetMajorCountFromDeptTest) {
@@ -120,6 +138,23 @@ TEST(RouteControllerUnitTests, GetMajorCountFromDeptTest) {
     routeController.getMajorCountFromDept(req, res);
     EXPECT_EQ(res.code, 200);
     EXPECT_EQ(res.body, "There are: 200 majors in the department"); 
+
+    req.url_params.clear();
+    res.body.clear();
+    res.code = 0;
+
+    req.url_params = crow::query_string{"?deptCode=none"};
+    routeController.getMajorCountFromDept(req, res);
+    EXPECT_EQ(res.code, 404);
+    EXPECT_EQ(res.body, "Department Not Found");
+
+    req.url_params.clear();
+    res.body.clear();
+    res.code = 0;
+
+    routeController.getMajorCountFromDept(req, res);
+    EXPECT_EQ(res.code, 400);
+    EXPECT_EQ(res.body, "Department code must be included in the request.");
 }
 
 TEST(RouteControllerUnitTests, IdentifyDeptChairTest) {
@@ -131,7 +166,24 @@ TEST(RouteControllerUnitTests, IdentifyDeptChairTest) {
     req.url_params = crow::query_string{"?deptCode=PHYS"};
     routeController.identifyDeptChair(req, res);
     EXPECT_EQ(res.code, 200);
-    EXPECT_EQ(res.body, "Marcia L. Newson is the department chair."); 
+    EXPECT_EQ(res.body, "Marcia L. Newson is the department chair.");
+
+    req.url_params.clear();
+    res.body.clear();
+    res.code = 0;
+
+    req.url_params = crow::query_string{"?deptCode=none"};
+    routeController.identifyDeptChair(req, res);
+    EXPECT_EQ(res.code, 404);
+    EXPECT_EQ(res.body, "Department Not Found");
+
+    req.url_params.clear();
+    res.body.clear();
+    res.code = 0;
+
+    routeController.identifyDeptChair(req, res);
+    EXPECT_EQ(res.code, 400);
+    EXPECT_EQ(res.body, "Department code must be included in the request.");
 }
 
 TEST(RouteControllerUnitTests, FindCourseLocationTest) {
@@ -144,6 +196,22 @@ TEST(RouteControllerUnitTests, FindCourseLocationTest) {
     routeController.findCourseLocation(req, res);
     EXPECT_EQ(res.code, 200);
     EXPECT_EQ(res.body, "301 PUP is where the course is located."); 
+
+    req.url_params.clear();
+    res.body.clear();
+    res.code = 0;
+    req.url_params = crow::query_string{"?deptCode=PHYS&courseCode=9999"};
+    routeController.findCourseLocation(req, res);
+    EXPECT_EQ(res.code, 404);
+    EXPECT_EQ(res.body, "Course Not Found");
+
+    req.url_params.clear();
+    res.body.clear();
+    res.code = 0;
+    req.url_params = crow::query_string{"?deptCode=PHYS"};
+    routeController.findCourseLocation(req, res);
+    EXPECT_EQ(res.code, 400);
+    EXPECT_EQ(res.body, "Both department code and course code must be included in the request.");
 }
 
 TEST(RouteControllerUnitTests, FindCourseInstructorTest) {
@@ -156,6 +224,22 @@ TEST(RouteControllerUnitTests, FindCourseInstructorTest) {
     routeController.findCourseInstructor(req, res);
     EXPECT_EQ(res.code, 200);
     EXPECT_EQ(res.body, "Szabolcs Marka is the instructor for the course.");  
+
+    req.url_params.clear();
+    res.body.clear();
+    res.code = 0;
+    req.url_params = crow::query_string{"?deptCode=PHYS&courseCode=9999"};
+    routeController.findCourseInstructor(req, res);
+    EXPECT_EQ(res.code, 404);
+    EXPECT_EQ(res.body, "Course Not Found");
+
+    req.url_params.clear();
+    res.body.clear();
+    res.code = 0;
+    req.url_params = crow::query_string{"?deptCode=PHYS"};
+    routeController.findCourseInstructor(req, res);
+    EXPECT_EQ(res.code, 400);
+    EXPECT_EQ(res.body, "Both department code and course code must be included in the request.");
 }
 
 TEST(RouteControllerUnitTests, FindCourseTimeTest) {
@@ -168,6 +252,22 @@ TEST(RouteControllerUnitTests, FindCourseTimeTest) {
     routeController.findCourseTime(req, res);
     EXPECT_EQ(res.code, 200);
     EXPECT_EQ(res.body, "The course meets at: 2:40-3:55");
+
+    req.url_params.clear();
+    res.body.clear();
+    res.code = 0;
+    req.url_params = crow::query_string{"?deptCode=PHYS&courseCode=9999"};
+    routeController.findCourseTime(req, res);
+    EXPECT_EQ(res.code, 404);
+    EXPECT_EQ(res.body, "Course Not Found");
+
+    req.url_params.clear();
+    res.body.clear();
+    res.code = 0;
+    req.url_params = crow::query_string{"?deptCode=PHYS"};
+    routeController.findCourseTime(req, res);
+    EXPECT_EQ(res.code, 400);
+    EXPECT_EQ(res.body, "Both department code and course code must be included in the request.");
 }
 
 TEST(RouteControllerUnitTests, AddMajorToDeptTest) {
@@ -180,6 +280,21 @@ TEST(RouteControllerUnitTests, AddMajorToDeptTest) {
     routeController.addMajorToDept(req, res);
     EXPECT_EQ(res.code, 200);
     EXPECT_EQ(res.body, "Attribute was updated successfully");
+
+    req.url_params.clear();
+    res.body.clear();
+    res.code = 0;
+    req.url_params = crow::query_string{"?deptCode=none"};
+    routeController.addMajorToDept(req, res);
+    EXPECT_EQ(res.code, 404);
+    EXPECT_EQ(res.body, "Department Not Found");
+
+    req.url_params.clear();
+    res.body.clear();
+    res.code = 0;
+    routeController.addMajorToDept(req, res);
+    EXPECT_EQ(res.code, 400);
+    EXPECT_EQ(res.body, "Department code must be included in the request.");
 }
 
 TEST(RouteControllerUnitTests, SetEnrollmentCountTest) {
@@ -192,6 +307,22 @@ TEST(RouteControllerUnitTests, SetEnrollmentCountTest) {
     routeController.setEnrollmentCount(req, res);
     EXPECT_EQ(res.code, 200);
     EXPECT_EQ(res.body, "Attribute was updated successfully.");
+
+    req.url_params.clear();
+    res.body.clear();
+    res.code = 0;
+    req.url_params = crow::query_string{"?deptCode=PHYS&courseCode=99&count=9"};
+    routeController.setEnrollmentCount(req, res);
+    EXPECT_EQ(res.code, 404);
+    EXPECT_EQ(res.body, "Course Not Found");
+
+    req.url_params.clear();
+    res.body.clear();
+    res.code = 0;
+    req.url_params = crow::query_string{"?deptCode=PHYS"};
+    routeController.setEnrollmentCount(req, res);
+    EXPECT_EQ(res.code, 400);
+    EXPECT_EQ(res.body, "Department code, course code and new count must ALL be included in the request.");
 }
 
 TEST(RouteControllerUnitTests, SetCourseLocationTest) {
@@ -204,6 +335,22 @@ TEST(RouteControllerUnitTests, SetCourseLocationTest) {
     routeController.setCourseLocation(req, res);
     EXPECT_EQ(res.code, 200);
     EXPECT_EQ(res.body, "Attribute was updated successfully.");
+
+    req.url_params.clear();
+    res.body.clear();
+    res.code = 0;
+    req.url_params = crow::query_string{"?deptCode=PHYS&courseCode=9999&location=x"};
+    routeController.setCourseLocation(req, res);
+    EXPECT_EQ(res.code, 404);
+    EXPECT_EQ(res.body, "Course Not Found");
+
+    req.url_params.clear();
+    res.body.clear();
+    res.code = 0;
+    req.url_params = crow::query_string{"?deptCode=PHYS"};
+    routeController.setCourseLocation(req, res);
+    EXPECT_EQ(res.code, 400);
+    EXPECT_EQ(res.body, "Department code, course code and new location must ALL be included in the request.");
 }
 
 TEST(RouteControllerUnitTests, SetCourseInstructorTest) {
@@ -216,6 +363,22 @@ TEST(RouteControllerUnitTests, SetCourseInstructorTest) {
     routeController.setCourseInstructor(req, res);
     EXPECT_EQ(res.code, 200);
     EXPECT_EQ(res.body, "Attribute was updated successfully.");
+
+    req.url_params.clear();
+    res.body.clear();
+    res.code = 0;
+    req.url_params = crow::query_string{"?deptCode=PHYS&courseCode=9999&instructor=x"};
+    routeController.setCourseInstructor(req, res);
+    EXPECT_EQ(res.code, 404);
+    EXPECT_EQ(res.body, "Course Not Found");
+
+    req.url_params.clear();
+    res.body.clear();
+    res.code = 0;
+    req.url_params = crow::query_string{"?deptCode=PHYS"};
+    routeController.setCourseInstructor(req, res);
+    EXPECT_EQ(res.code, 400);
+    EXPECT_EQ(res.body, "Department code, course code and new instructor must ALL be included in the request.");
 }
 
 TEST(RouteControllerUnitTests, SetCourseTimeTest) {
@@ -228,6 +391,22 @@ TEST(RouteControllerUnitTests, SetCourseTimeTest) {
     routeController.setCourseTime(req, res);
     EXPECT_EQ(res.code, 200);
     EXPECT_EQ(res.body, "Attribute was updated successfully.");
+
+    req.url_params.clear();
+    res.body.clear();
+    res.code = 0;
+    req.url_params = crow::query_string{"?deptCode=PHYS&courseCode=9999&time=x"};
+    routeController.setCourseTime(req, res);
+    EXPECT_EQ(res.code, 404);
+    EXPECT_EQ(res.body, "Course Not Found");
+
+    req.url_params.clear();
+    res.body.clear();
+    res.code = 0;
+    req.url_params = crow::query_string{"?deptCode=PHYS"};
+    routeController.setCourseTime(req, res);
+    EXPECT_EQ(res.code, 400);
+    EXPECT_EQ(res.body, "Department code, course code and new time must ALL be included in the request.");
 }
 
 
@@ -241,6 +420,21 @@ TEST(RouteControllerUnitTests, RemoveMajorFromDeptTest) {
     routeController.removeMajorFromDept(req, res);
     EXPECT_EQ(res.code, 200);
     EXPECT_EQ(res.body, "Attribute was updated successfully");
+
+    req.url_params.clear();
+    res.body.clear();
+    res.code = 0;
+    req.url_params = crow::query_string{"?deptCode=none"};
+    routeController.removeMajorFromDept(req, res);
+    EXPECT_EQ(res.code, 404);
+    EXPECT_EQ(res.body, "Department Not Found");
+
+    req.url_params.clear();
+    res.body.clear();
+    res.code = 0;
+    routeController.removeMajorFromDept(req, res);
+    EXPECT_EQ(res.code, 400);
+    EXPECT_EQ(res.body, "Department code must be included in the request.");
 }
 
 TEST(RouteControllerUnitTests, DropStudentFromCourseTest) {
@@ -253,4 +447,21 @@ TEST(RouteControllerUnitTests, DropStudentFromCourseTest) {
     routeController.dropStudentFromCourse(req, res);
     EXPECT_EQ(res.code, 200);
     EXPECT_EQ(res.body, "Student has been dropped");
+
+    req.url_params.clear();
+    res.body.clear();
+    res.code = 0;
+
+    req.url_params = crow::query_string{"?deptCode=none&courseCode=10"};
+    routeController.dropStudentFromCourse(req, res);
+    EXPECT_EQ(res.code, 404);
+    EXPECT_EQ(res.body, "Department Not Found");
+
+    req.url_params.clear();
+    res.body.clear();
+    res.code = 0;
+
+    routeController.dropStudentFromCourse(req, res);
+    EXPECT_EQ(res.code, 400);
+    EXPECT_EQ(res.body, "Both department code and course code must be included in the request.");
 }
