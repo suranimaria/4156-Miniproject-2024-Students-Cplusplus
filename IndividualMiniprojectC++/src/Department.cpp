@@ -39,7 +39,7 @@ int Department::getNumberOfMajors() const { return numberOfMajors; }
  *
  * @return The name of the department chair.
  */
-std::string Department::getDepartmentChair() const { return "departmentChair"; }
+std::string Department::getDepartmentChair() const { return departmentChair; }
 
 /**
  * Gets the courses offered by the department.
