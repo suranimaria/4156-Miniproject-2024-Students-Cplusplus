@@ -77,16 +77,10 @@ std::string Course::getInstructorName() const { return instructorName; }
 std::string Course::getCourseTimeSlot() const { return courseTimeSlot; }
 
 /**
- * Gets the current enrolled student count.
- *
- * @return number of students currently enrolled in the course.
- */
-int Course::getEnrolledStudentCount() const { return enrolledStudentCount; }
-
-/**
  * Displays the course information in a string format.
  *
- * @return string with course details including instructor name, location, and time slot.
+ * @return string with course details including instructor name, location, and
+ * time slot.
  */
 std::string Course::display() const {
   return "\nInstructor: " + instructorName + "; Location: " + courseLocation +
