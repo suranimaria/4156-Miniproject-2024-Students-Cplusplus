@@ -8,7 +8,7 @@
 
 #include "Globals.h"
 #include "MyFileDatabase.h"
-#include "crow.h" // NOLINT
+#include "crow.h"  // NOLINT
 
 // Utility function to handle exceptions
 crow::response handleException(const std::exception& e) {
@@ -85,7 +85,9 @@ void RouteController::retrieveCourse(const crow::request& req,
   try {
     if (!req.url_params.get("deptCode") || !req.url_params.get("courseCode")) {
       res.code = 400;
-      res.write("Both department code and course code must be included in the request.");
+      res.write(
+          "Both department code and course code must be included in the "
+          "request.");
       res.end();
       return;
     }
@@ -136,7 +138,9 @@ void RouteController::isCourseFull(const crow::request& req,
   try {
     if (!req.url_params.get("deptCode") || !req.url_params.get("courseCode")) {
       res.code = 400;
-      res.write("Both department code and course code must be included in the request.");
+      res.write(
+          "Both department code and course code must be included in the "
+          "request.");
       res.end();
       return;
     }
@@ -267,7 +271,9 @@ void RouteController::findCourseLocation(const crow::request& req,
   try {
     if (!req.url_params.get("deptCode") || !req.url_params.get("courseCode")) {
       res.code = 400;
-      res.write("Both department code and course code must be included in the request.");
+      res.write(
+          "Both department code and course code must be included in the "
+          "request.");
       res.end();
       return;
     }
@@ -320,7 +326,9 @@ void RouteController::findCourseInstructor(const crow::request& req,
   try {
     if (!req.url_params.get("deptCode") || !req.url_params.get("courseCode")) {
       res.code = 400;
-      res.write("Both department code and course code must be included in the request.");
+      res.write(
+          "Both department code and course code must be included in the "
+          "request.");
       res.end();
       return;
     }
@@ -373,7 +381,9 @@ void RouteController::findCourseTime(const crow::request& req,
   try {
     if (!req.url_params.get("deptCode") || !req.url_params.get("courseCode")) {
       res.code = 400;
-      res.write("Both department code and course code must be included in the request.");
+      res.write(
+          "Both department code and course code must be included in the "
+          "request.");
       res.end();
       return;
     }
@@ -448,13 +458,16 @@ void RouteController::addMajorToDept(const crow::request& req,
 void RouteController::setEnrollmentCount(const crow::request& req,
                                          crow::response& res) {
   try {
-    if (!req.url_params.get("deptCode") || !req.url_params.get("courseCode") || !req.url_params.get("count")) {
+    if (!req.url_params.get("deptCode") || !req.url_params.get("courseCode") ||
+        !req.url_params.get("count")) {
       res.code = 400;
-      res.write("Department code, course code and new count must ALL be included in the request.");
+      res.write(
+          "Department code, course code and new count must ALL be included in "
+          "the request.");
       res.end();
       return;
     }
-    
+
     auto deptCode = req.url_params.get("deptCode");
     auto courseCode = std::stoi(req.url_params.get("courseCode"));
     auto count = std::stoi(req.url_params.get("count"));
@@ -488,9 +501,12 @@ void RouteController::setEnrollmentCount(const crow::request& req,
 void RouteController::setCourseLocation(const crow::request& req,
                                         crow::response& res) {
   try {
-    if (!req.url_params.get("deptCode") || !req.url_params.get("courseCode") || !req.url_params.get("location")) {
+    if (!req.url_params.get("deptCode") || !req.url_params.get("courseCode") ||
+        !req.url_params.get("location")) {
       res.code = 400;
-      res.write("Department code, course code and new location must ALL be included in the request.");
+      res.write(
+          "Department code, course code and new location must ALL be included "
+          "in the request.");
       res.end();
       return;
     }
@@ -527,9 +543,12 @@ void RouteController::setCourseLocation(const crow::request& req,
 void RouteController::setCourseInstructor(const crow::request& req,
                                           crow::response& res) {
   try {
-    if (!req.url_params.get("deptCode") || !req.url_params.get("courseCode") || !req.url_params.get("instructor")) {
+    if (!req.url_params.get("deptCode") || !req.url_params.get("courseCode") ||
+        !req.url_params.get("instructor")) {
       res.code = 400;
-      res.write("Department code, course code and new instructor must ALL be included in the request.");
+      res.write(
+          "Department code, course code and new instructor must ALL be "
+          "included in the request.");
       res.end();
       return;
     }
@@ -569,9 +588,12 @@ void RouteController::setCourseInstructor(const crow::request& req,
 void RouteController::setCourseTime(const crow::request& req,
                                     crow::response& res) {
   try {
-    if (!req.url_params.get("deptCode") || !req.url_params.get("courseCode") || !req.url_params.get("time")) {
+    if (!req.url_params.get("deptCode") || !req.url_params.get("courseCode") ||
+        !req.url_params.get("time")) {
       res.code = 400;
-      res.write("Department code, course code and new time must ALL be included in the request.");
+      res.write(
+          "Department code, course code and new time must ALL be included in "
+          "the request.");
       res.end();
       return;
     }
@@ -659,7 +681,9 @@ void RouteController::dropStudentFromCourse(const crow::request& req,
   try {
     if (!req.url_params.get("deptCode") || !req.url_params.get("courseCode")) {
       res.code = 400;
-      res.write("Both department code and course code must be included in the request.");
+      res.write(
+          "Both department code and course code must be included in the "
+          "request.");
       res.end();
       return;
     }
@@ -787,7 +811,7 @@ void RouteController::initRoutes(crow::App<>& app) {
           });
 }
 
-void RouteController::setDatabase(MyFileDatabase* db) { 
+void RouteController::setDatabase(MyFileDatabase* db) {
   std::cout << "Database set to: " << db << std::endl;
-  myFileDatabase = db; 
+  myFileDatabase = db;
 }
