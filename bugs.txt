@@ -1,0 +1,14 @@
+
+- Course.cpp;
+    - enrolled num initialized as 500 
+    - getters forInstructorName and TimeSlot mixed uo return values
+    - wrong check if the course is full
+    - drop student function would not ensure the numebr of stduents doesn't go negative
+    - enroll student function > check whether there is capacity left
+
+- Department.cpp
+    - getDepartmentChair > returned hardcoded string
+
+- RouterController.cpp
+    - edge case of not passing any query parameters (dept/course code) not handled => requests would just never terminate
+

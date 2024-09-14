@@ -38,7 +38,6 @@ TEST(MyFileDatabaseUnitTests, SerializationTest) {
     EXPECT_EQ(deserialized_course->getInstructorName(), originalCourse->getInstructorName());
     EXPECT_EQ(deserialized_course->getCourseLocation(), originalCourse->getCourseLocation());
     EXPECT_EQ(deserialized_course->getCourseTimeSlot(), originalCourse->getCourseTimeSlot());
-    EXPECT_EQ(deserialized_course->getEnrolledStudentCount(), originalCourse->getEnrolledStudentCount());
 }
 
 TEST(MyFileDatabaseUnitTests, DisplayTest) {

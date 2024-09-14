@@ -1,0 +1,8 @@
+LCOV:
+https://medium.com/@xianpeng.shen/use-gcov-and-lcov-to-perform-code-coverage-testing-for-c-c-projects-c85708b91c78
+
+clang-format:
+https://clang.llvm.org/docs/ClangFormatStyleOptions.html
+
+clang-tidy:
+https://clang.llvm.org/extra/clang-tidy/checks/list.html
