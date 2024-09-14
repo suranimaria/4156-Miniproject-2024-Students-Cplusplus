@@ -6,6 +6,11 @@
 MyFileDatabase* MyApp::myFileDatabase = nullptr;
 bool MyApp::saveData = false;
 
+/**
+ * Runs the application in the specified mode.
+ *
+ * @param mode string representing the mode to run the application in.
+ */
 void MyApp::run(const std::string& mode) {
   saveData = true;
   if (mode == "setup") {
@@ -17,6 +22,10 @@ void MyApp::run(const std::string& mode) {
   std::cout << "Start up" << std::endl;
 }
 
+/**
+ * Handles the app's termination and saves the database contents 
+ * to a file if needed.
+ */
 void MyApp::onTermination() {
   std::cout << "Termination" << std::endl;
   if (saveData && myFileDatabase) {
@@ -26,19 +35,36 @@ void MyApp::onTermination() {
   myFileDatabase = nullptr;
 }
 
+/**
+ * Overrides the current database with the provided one.
+ *
+ * @param testData pointer to the test database to override with.
+ */
 void MyApp::overrideDatabase(MyFileDatabase* testData) {
   delete myFileDatabase;
   myFileDatabase = testData;
   saveData = false;
 }
 
+/**
+ * Gets the current database used 
+ *
+ * @return A pointer to the current MyFileDatabase instance.
+ */
 MyFileDatabase* MyApp::getDatabase() { return myFileDatabase; }
 
+/**
+ * Initilaizes a new database for the application and reset the data file
+ */
 void MyApp::setupDatabase() {
   myFileDatabase = new MyFileDatabase(1, "testfile.bin");
   resetDataFile();
 }
 
+/**
+ * Resets the data file by populating the database with hardcoded data
+ * 
+ */
 void MyApp::resetDataFile() {
   std::string times[] = {"11:40-12:55", "4:10-5:25", "10:10-11:25",
                          "2:40-3:55"};

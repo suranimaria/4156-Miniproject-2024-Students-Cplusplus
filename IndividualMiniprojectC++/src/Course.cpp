@@ -53,19 +53,49 @@ bool Course::dropStudent() {
   return false;
 }
 
+/**
+ * Gets the course location.
+ *
+ * @return string representing the course location.
+ */
 std::string Course::getCourseLocation() const { return courseLocation; }
 
+/**
+ * Gets the instructor's name.
+ *
+ * @return string representing the instructor's name.
+ */
 std::string Course::getInstructorName() const { return instructorName; }
 
+/**
+ * Gets the time slot for the course.
+ *
+ * @return string representing the time slot of the course.
+ */
 std::string Course::getCourseTimeSlot() const { return courseTimeSlot; }
 
+/**
+ * Gets the current enrolled student count.
+ *
+ * @return number of students currently enrolled in the course.
+ */
 int Course::getEnrolledStudentCount() const { return enrolledStudentCount; }
 
+/**
+ * Displays the course information in a string format.
+ *
+ * @return string with course details including instructor name, location, and time slot.
+ */
 std::string Course::display() const {
   return "\nInstructor: " + instructorName + "; Location: " + courseLocation +
          "; Time: " + courseTimeSlot;
 }
 
+/**
+ * Update value of the instructor of the course.
+ *
+ * @param newInstructorName The new instructor's name.
+ */
 void Course::reassignInstructor(const std::string& newInstructorName) {
   std::cout << "Old Instructor: " << instructorName << std::endl;
   this->instructorName =
@@ -73,22 +103,47 @@ void Course::reassignInstructor(const std::string& newInstructorName) {
   std::cout << "New Instructor: " << this->instructorName << std::endl;
 }
 
+/**
+ * Update value of the location of the course.
+ *
+ * @param newLocation The new course location.
+ */
 void Course::reassignLocation(const std::string& newLocation) {
   courseLocation = newLocation;
 }
 
+/**
+ * Update value of the time of the course.
+ *
+ * @param newTime The new time slot for the course.
+ */
 void Course::reassignTime(const std::string& newTime) {
   courseTimeSlot = newTime;
 }
 
+/**
+ * Update the number of students enrolled in the course.
+ *
+ * @param count The number of enrolled students.
+ */
 void Course::setEnrolledStudentCount(int count) {
   enrolledStudentCount = count;
 }
 
+/**
+ * Checks if the course has reached its enrollment capacity.
+ *
+ * @return true if the course is full, false otherwise.
+ */
 bool Course::isCourseFull() const {
   return enrolledStudentCount >= enrollmentCapacity;
 }
 
+/**
+ * Serializes the Course object into a binary format.
+ *
+ * @param out The output stream where the course data will be written.
+ */
 void Course::serialize(std::ostream& out) const {
   out.write(reinterpret_cast<const char*>(&enrollmentCapacity),
             sizeof(enrollmentCapacity));
@@ -109,6 +164,11 @@ void Course::serialize(std::ostream& out) const {
   out.write(courseTimeSlot.c_str(), timeSlotLen);
 }
 
+/**
+ * Deserializes the Course object from a binary format.
+ *
+ * @param in The input stream from which the course data will be read.
+ */
 void Course::deserialize(std::istream& in) {
   in.read(reinterpret_cast<char*>(&enrollmentCapacity),
           sizeof(enrollmentCapacity));

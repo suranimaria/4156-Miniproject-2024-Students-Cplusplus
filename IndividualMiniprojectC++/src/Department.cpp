@@ -106,6 +106,13 @@ std::string Department::display() const {
   return result.str();
 }
 
+/**
+ * Serializes the Department object to binary format.
+ * Including the department code, department chair,
+ * number of majors, and all associated courses.
+ *
+ * @param out The output stream where the department data will be written.
+ */
 void Department::serialize(std::ostream& out) const {
   size_t deptCodeLen = deptCode.length();
   out.write(reinterpret_cast<const char*>(&deptCodeLen), sizeof(deptCodeLen));
@@ -128,6 +135,11 @@ void Department::serialize(std::ostream& out) const {
   }
 }
 
+/**
+ * Deserializes the Department object from binary format.
+ *
+ * @param in The input stream from which the department data will be read.
+ */
 void Department::deserialize(std::istream& in) {
   size_t deptCodeLen;
   in.read(reinterpret_cast<char*>(&deptCodeLen), sizeof(deptCodeLen));
