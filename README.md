@@ -111,3 +111,6 @@ Follow the set-up steps from the assignment instructions (**Reminder** to update
    *Note*: The checks enabled for `clang-tidy` are defined in the `.clang-tidy` file. In this case, only specific checks for static analysis are enabled to avoid unnecessary noise.
 
 
+
+
+*Note*: In case of errors regarding corrupted: `.gcda` and `.gcno` files, delete the entire build/CMakeFiles directory and re-build
