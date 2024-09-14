@@ -39,6 +39,7 @@ Course::Course()
  * @return true if the student is successfully enrolled, false otherwise.
  */
 bool Course::enrollStudent() {
+  if (enrolledStudentCount >= enrollmentCapacity) return false;
   enrolledStudentCount++;
   return false;
 }
@@ -49,8 +50,9 @@ bool Course::enrollStudent() {
  * @return true if the student is successfully dropped, false otherwise.
  */
 bool Course::dropStudent() {
+  if (enrolledStudentCount == 0) return false;
   enrolledStudentCount--;
-  return false;
+  return true;
 }
 
 /**

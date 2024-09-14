@@ -243,14 +243,14 @@ TEST(RouteControllerUnitTests, RemoveMajorFromDeptTest) {
     EXPECT_EQ(res.body, "Attribute was updated successfully");
 }
 
-// TEST(RouteControllerUnitTests, DropStudentFromCourseTest) {
-//     RouteController routeController;
-//     SetUpDatabase(routeController);
+TEST(RouteControllerUnitTests, DropStudentFromCourseTest) {
+    RouteController routeController;
+    SetUpDatabase(routeController);
 
-//     crow::request req{};
-//     crow::response res{};
-//     req.url_params = crow::query_string{"?deptCode=PHYS&courseCode=1001"};
-//     routeController.dropStudentFromCourse(req, res);
-//     EXPECT_EQ(res.code, 200);
-//     EXPECT_EQ(res.body, "Student has been dropped");
-// }
+    crow::request req{};
+    crow::response res{};
+    req.url_params = crow::query_string{"?deptCode=PHYS&courseCode=1001"};
+    routeController.dropStudentFromCourse(req, res);
+    EXPECT_EQ(res.code, 200);
+    EXPECT_EQ(res.body, "Student has been dropped");
+}
