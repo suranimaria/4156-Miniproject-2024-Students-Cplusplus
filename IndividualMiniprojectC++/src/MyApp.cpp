@@ -23,7 +23,7 @@ void MyApp::run(const std::string& mode) {
 }
 
 /**
- * Handles the app's termination and saves the database contents 
+ * Handles the app's termination and saves the database contents
  * to a file if needed.
  */
 void MyApp::onTermination() {
@@ -47,7 +47,7 @@ void MyApp::overrideDatabase(MyFileDatabase* testData) {
 }
 
 /**
- * Gets the current database used 
+ * Gets the current database used
  *
  * @return A pointer to the current MyFileDatabase instance.
  */
@@ -63,7 +63,7 @@ void MyApp::setupDatabase() {
 
 /**
  * Resets the data file by populating the database with hardcoded data
- * 
+ *
  */
 void MyApp::resetDataFile() {
   std::string times[] = {"11:40-12:55", "4:10-5:25", "10:10-11:25",
